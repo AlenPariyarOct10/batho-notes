@@ -32,6 +32,11 @@
                 {{ session('message') }}
             </div>
         @endif
+            @if(session('error'))
+                <div class="bg-red-200 text-red-700 p-3 rounded">
+                    {{ session('error') }}
+                </div>
+            @endif
             @error('message')
             <div class="bg-red-200 p-3 text-red-900">{{ $message }}</div>
             @enderror

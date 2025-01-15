@@ -54,10 +54,19 @@ class UserController extends Controller
         ]);
 
        if(Auth::attempt($validate)) {
-            return redirect()->route('dashboard');
+            return redirect()->route('welcome');
        }else{
 
            return back()->withErrors(['message' => 'Please enter correct email and password.']);
        }
+    }
+
+    public function logout(Request $request)
+    {
+        if(Auth::check())
+        {
+            Auth::logout();
+            return redirect()->route('auth.login');
+        }
     }
 }
