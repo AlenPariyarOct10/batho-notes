@@ -1,0 +1,23 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+
+// Default route
+Route::get('/', function () {
+    return view('welcome');
+});
+
+// Authentication routes
+Route::get('/auth/login', function () {
+    return view('auth.login');
+})->name('auth.login');
+
+Route::post('/auth/login', [UserController::class, 'login'])->name('auth.login');
+
+Route::get('/auth/register', function () {
+    return view('auth.register');
+})->name('auth.register');
+
+// Register form submission (POST request)
+Route::post('/auth/register', [UserController::class, 'register'])->name('auth.register');
