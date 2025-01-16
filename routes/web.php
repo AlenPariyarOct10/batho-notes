@@ -17,6 +17,12 @@ Route::get('/auth/login', function () {
     return view('auth.login');
 })->name('auth.login');
 
+Route::group(['prefix'=>'create'],function(){
+   Route::get('/notebook', function () {
+       return view('notebook.create');
+   });
+});
+
 Route::post('/auth/login', [UserController::class, 'login'])->name('auth.login');
 
 Route::get('/auth/register', function () {
