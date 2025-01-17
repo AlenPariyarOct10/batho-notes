@@ -66,7 +66,7 @@ class UserController extends Controller
         if(Auth::check())
         {
             Auth::logout();
-            return redirect()->route('auth.login');
+            return redirect()->route('login');
         }
     }
 }

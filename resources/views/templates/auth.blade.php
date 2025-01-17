@@ -25,22 +25,33 @@
             <h1 class="font-poppins text-xl font-medium">BathoNotes</h1>
         </div>
     </div>
-    <div id="nav-right-part" class="flex justify-between items-center">
-        <div id="nav-search-bar">
+    <div>
+        <div id="search-box-wrapper" class="bg-white px-4 py-2">
             <input type="text" name="" id="">
         </div>
+    </div>
+    <div id="nav-right-part" class="flex justify-between items-center">
         <div id="profile-img-btn">
-            <img class="w-10 h-10 object-fit rounded-full" src="https://st3.depositphotos.com/9998432/13335/v/450/depositphotos_133352010-stock-illustration-default-placeholder-man-and-woman.jpg" alt="">
+            <img id="navbar-profile-img" class="w-10 h-10 object-fit rounded-full cursor-pointer" src="https://st3.depositphotos.com/9998432/13335/v/450/depositphotos_133352010-stock-illustration-default-placeholder-man-and-woman.jpg" alt="">
         </div>
     </div>
+
+    <div id="profile-menu" class="absolute right-4 top-16 mt-2 bg-white shadow-lg rounded-md w-48 hidden">
+        <ul>
+            <li class="hover:bg-gray-200"><a href="#" class="block px-4 py-2">Profile</a></li>
+            <li class="hover:bg-gray-200"><a href="#" class="block px-4 py-2">Settings</a></li>
+            <li class="bg-red-500 hover:bg-red-600 text-white"><a href="{{route('logout')}}" class="block px-4 py-2">Logout</a></li>
+        </ul>
+    </div>
+
 </nav>
-<div class="flex w-full mt-4">
+<div class="flex w-full mt-4 p-3">
     <aside class="w-1/5">
-        <div>
+        <div class="flex justify-between mr-8">
             <span>Your NoteBooks</span>
-            <button>
-                New
-            </button>
+            <a href="{{route('notebook.create')}}" class="text-white text-sm bg-green-600 hover:bg-green-500 px-3 py-0.5 rounded-md">
+                <i class="fa-solid fa-book"></i> New
+            </a>
         </div>
         <div>
             <input type="text" name="" id="" placeholder="Find a notebook">
@@ -64,4 +75,19 @@
     </aside>
 </div>
 </body>
+<script>
+    document.getElementById('profile-img-btn').addEventListener('click',()=>{
+
+
+        if(document.getElementById('profile-menu').classList.contains('hidden'))
+        {
+            document.getElementById('profile-menu').classList.remove('hidden');
+            document.getElementById('navbar-profile-img').classList.add('border-[2px]', 'border-gray-300');
+
+        }else{
+            document.getElementById('profile-menu').classList.add('hidden');
+            document.getElementById('navbar-profile-img').classList.remove('border-[2px]', 'border-gray-300');
+        }
+    })
+</script>
 </html>

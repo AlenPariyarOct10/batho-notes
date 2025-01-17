@@ -1,7 +1,17 @@
 @extends('templates.auth')
 
 @section('content')
-    <form action="" method="post">
+    @if (session('success'))
+        <div class="bg-green-200 p-3 text-green-900">
+            {{ session('success') }}
+        </div>
+    @endif
+    @if (session('error'))
+        <div class="bg-red-200 p-3 text-red-900">
+            {{ session('error') }}
+        </div>
+    @endif
+    <form action="{{route('notebook.create')}}" method="post">
         @csrf
     <h1 class="text-3xl font-medium">Create a new NoteBook</h1>
     <span class="text-gray-600 text-sm">A notebook contains all units and sections</span>
@@ -15,7 +25,7 @@
             <div>
                 <input type="text" autofocus
                        class="border-[1px] border-gray-600 focus:border-blue outline-blue-500 rounded-md p-1 bg-[#f6f8fa]"
-                       name="notebook-name" id="notebook-name">
+                       name="title" id="notebook-name">
             </div>
         </div>
     </div>
@@ -25,18 +35,28 @@
             <div class="w-full">
                 <input type="text" autofocus
                        class="w-full border-[1px] border-gray-600 focus:border-blue outline-blue-500 rounded-md p-1 bg-[#f6f8fa]"
-                       name="notebook-name" id="notebook-name">
+                       name="description" id="notebook-description">
             </div>
         </div>
     </div>
 
     <hr class="h-px my-4 bg-gray-200 border-0 dark:bg-gray-700">
 
+        <div id="new-repo-category-section" class="flex flex-col gap-3 items-baseline mt-3 text-secondary">
+            <span class="font-medium text-secondary">Category</span>
+
+            <select name="category" class="px-3 border-[1px]">
+                <option value="null">No Categories</option>
+            </select>
+        </div>
+
+    <hr class="h-px my-4 bg-gray-200 border-0 dark:bg-gray-700">
+
     <div id="new-repo-access-section" class="flex flex-col gap-3 items-baseline mt-3 text-secondary">
         <div class="flex gap-3">
-            <input type="radio" autofocus
+            <input checked type="radio" autofocus
                        class="border-[1px] border-gray-600 focus:border-blue outline-blue-500 rounded-md p-1 bg-[#f6f8fa]"
-                       name="notebook-access" id="notebook-access-public" value="public">
+                       name="public" id="notebook-access-public" value="1" required>
             <label for="notebook-access-public" class="flex flex-row items-center gap-4">
                 <i class="fa-solid fa-globe text-2xl"></i>
                 <span class="flex flex-col">
@@ -48,7 +68,7 @@
         <div class="flex gap-3">
             <input type="radio" autofocus
                        class="border-[1px] border-gray-600 focus:border-blue outline-blue-500 rounded-md p-1 bg-[#f6f8fa]"
-                       name="notebook-access" id="notebook-access-private" value="private">
+                       name="public" id="notebook-access-private" value="0">
             <label for="notebook-access-private" class="flex flex-row items-center gap-4">
                 <i class="fa-solid fa-lock  text-2xl"></i>
                 <span class="flex flex-col">
@@ -63,7 +83,6 @@
 
     <div class="flex justify-center">
         <button class="bg-green-600 px-4 py-2 font-medium text-white hover:bg-green-500 active:bg-gradient-to-b from-green-500 to-green-600">Create</button>
-
     </div>
     </form>
 @endsection

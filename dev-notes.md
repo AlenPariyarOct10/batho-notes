@@ -4,3 +4,8 @@
 - Logout
 
 # Day 2
+- Create NoteBook
+- Create Category Function - Form remaining
+
+# Day 3
+

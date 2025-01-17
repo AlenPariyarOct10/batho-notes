@@ -8,26 +8,29 @@ use App\Http\Controllers\HomeController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/logout', [UserController::class, 'logout'])->name('logout');
 
-Route::get('/welcome', [HomeController::class, 'index'])->name('welcome');
+// Logout route
+Route::get('/logout', [UserController::class, 'logout'])->name('logout')->middleware('auth');
 
-// Authentication routes
-Route::get('/auth/login', function () {
-    return view('auth.login');
-})->name('auth.login');
-
-Route::group(['prefix'=>'create'],function(){
-   Route::get('/notebook', function () {
-       return view('notebook.create');
-   });
+// Authenticated routes
+Route::middleware('auth')->group(function () {
+    Route::get('/welcome', [HomeController::class, 'index'])->name('welcome');
+    Route::get('/notebook/create', [\App\Http\Controllers\User\NoteBookController::class, 'create'])->name('notebook.create');
+    Route::post('/notebook/create', [\App\Http\Controllers\User\NoteBookController::class, 'store'])->name('notebook.create');
+    Route::get('/notebook', [\App\Http\Controllers\User\NoteBookController::class, 'index'])->name('notebook.index');
 });
 
-Route::post('/auth/login', [UserController::class, 'login'])->name('auth.login');
+// Guest-only routes (prevent access for authenticated users)
+Route::middleware('guest')->group(function () {
+    Route::get('/auth/login', function () {
+        return view('auth.login');
+    })->name('login');
 
-Route::get('/auth/register', function () {
-    return view('auth.register');
-})->name('auth.register');
+    Route::post('/auth/login', [UserController::class, 'login'])->name('auth.login');
 
-// Register form submission (POST request)
-Route::post('/auth/register', [UserController::class, 'register'])->name('auth.register');
+    Route::get('/auth/register', function () {
+        return view('auth.register');
+    })->name('auth.register');
+
+    Route::post('/auth/register', [UserController::class, 'register'])->name('auth.register');
+});
