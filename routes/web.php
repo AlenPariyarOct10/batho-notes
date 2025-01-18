@@ -17,6 +17,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/welcome', [HomeController::class, 'index'])->name('welcome');
     Route::get('/notebook/create', [\App\Http\Controllers\User\NoteBookController::class, 'create'])->name('notebook.create');
     Route::post('/notebook/create', [\App\Http\Controllers\User\NoteBookController::class, 'store'])->name('notebook.create');
+    Route::get('/notebook/edit/{slug}', [\App\Http\Controllers\User\NoteBookController::class, 'edit'])->name('notebook.edit');
+    Route::post('/notebook/edit/{slug}', [\App\Http\Controllers\User\NoteBookController::class, 'store'])->name('notebook.update');
     Route::get('/notebook', [\App\Http\Controllers\User\NoteBookController::class, 'index'])->name('notebook.index');
 });
 

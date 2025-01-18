@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\NoteBook;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -63,9 +64,19 @@ class NoteBookController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $slug)
     {
-        //
+        $notebook = NoteBook::where('slug', $slug)->firstOrFail();
+
+        $categories = Category::all();
+
+        if($notebook->author_id == Auth::id())
+        {
+
+            return view('notebook.edit', compact('notebook', 'categories'));
+        }else{
+            return "invalid user";
+        }
     }
 
     /**
