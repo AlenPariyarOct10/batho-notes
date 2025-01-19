@@ -66,6 +66,10 @@ class NoteBookController extends Controller
      */
     public function edit(string $slug)
     {
+        //notify()->success('Welcome to Laravel Notify ⚡️');
+        connectify('success', 'Connection Found', 'Success Message Here');
+        //drakify('success');
+
         $notebook = NoteBook::where('slug', $slug)->firstOrFail();
 
         $categories = Category::all();
@@ -92,6 +96,11 @@ class NoteBookController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        if(NoteBook::destroy($id))
+        {
+            return redirect()->route('notebook.index')->with('success','Notebook deleted successfully');
+        }else{
+            return redirect()->route('notebook.index')->with('error','Something went wrong');
+        }
     }
 }

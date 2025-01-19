@@ -11,7 +11,7 @@
             {{ session('error') }}
         </div>
     @endif
-    <form action="{{route('notebook.create')}}" method="post">
+    <form action="{{route('notebook.edit', $notebook->id)}}" method="post">
         @csrf
         <h1 class="text-3xl font-medium">Edit a NoteBook</h1>
         <span class="text-gray-600 text-sm">A notebook contains all units and sections</span>

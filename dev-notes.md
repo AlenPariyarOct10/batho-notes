@@ -11,5 +11,6 @@
 - Edit NoteBook (Only Form)
 
 # Day 4
-- 
+- Adding notification package : https://github.com/mckenziearts/laravel-notify
 
+# Day 5

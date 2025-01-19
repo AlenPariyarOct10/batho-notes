@@ -79,7 +79,10 @@
                                             />
                                         </svg>
                                     </button>
-                                    <button class="hover:text-primary">
+                                    <form action="{{route('notebook.delete', $note->id)}}" method="post">
+                                        <input type="hidden" name="_method" value="delete">
+                                        @csrf
+                                    <button type="submit" class="hover:text-primary">
                                         <svg
                                             class="fill-current"
                                             width="18"
@@ -106,8 +109,8 @@
                                             />
                                         </svg>
                                     </button>
+                                    </form>
                                     <a href="{{route('notebook.edit', $note->slug)}}" class="hover:text-primary">
-
                                         <i class="fa-solid fa-pen"></i>
                                     </a>
                                 </div>
