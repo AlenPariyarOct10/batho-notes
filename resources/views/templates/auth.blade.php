@@ -58,5 +58,6 @@
     });
 
 </script>
-@notifyJs
+@include('sweetalert::alert')
+@stack('js')
 </html>

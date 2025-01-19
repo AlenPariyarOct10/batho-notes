@@ -79,10 +79,11 @@
                                             />
                                         </svg>
                                     </button>
+
                                     <form action="{{route('notebook.delete', $note->id)}}" method="post">
-                                        <input type="hidden" name="_method" value="delete">
+                                        @method('DELETE')
                                         @csrf
-                                    <button type="submit" class="hover:text-primary">
+                                    <button type="button" class="hover:text-primary deleteBtn">
                                         <svg
                                             class="fill-current"
                                             width="18"
@@ -126,5 +127,44 @@
             </div>
         </div>
     </div>
-    </div>
+
 @endsection
+
+@push('js')
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Select all elements with the class 'deleteBtn'
+            document.querySelectorAll('.deleteBtn').forEach(function (button) {
+                // Add click event listener to each button
+                button.addEventListener('click', function (event) {
+                    event.preventDefault(); // Prevent default action
+
+                    // Get the closest form to the clicked button
+                    const form = button.closest("form");
+                    if (!form) {
+                        console.error("No form found for the button.");
+                        return;
+                    }
+
+                    // Show confirmation dialog using SweetAlert2
+                    Swal.fire({
+                        title: "Are you sure you want to delete this record?",
+                        text: "If you delete this, it will be gone forever.",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonText: `<i class="fa fa-thumbs-up"></i> Confirm`,
+                        cancelButtonText: `<i class="fa fa-thumbs-down"></i> Cancel`,
+                    }).then((result) => {
+                        // Check if the user confirmed
+                        if (result.isConfirmed) {
+                            form.submit(); // Submit the form if confirmed
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+
+
+
+@endpush

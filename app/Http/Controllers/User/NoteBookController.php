@@ -8,6 +8,7 @@ use App\Models\NoteBook;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class NoteBookController extends Controller
 {
@@ -17,6 +18,10 @@ class NoteBookController extends Controller
     public function index()
     {
         $notes = NoteBook::all()->where('author_id', Auth::id());
+
+        $title = "Delete Notebook !";
+        $text = "Are you sure you want to delete this notebook ?";
+        confirmDelete($title, $text);
         return view('notebook.index', compact('notes'));
     }
 
@@ -67,7 +72,8 @@ class NoteBookController extends Controller
     public function edit(string $slug)
     {
         //notify()->success('Welcome to Laravel Notify ⚡️');
-        connectify('success', 'Connection Found', 'Success Message Here');
+        Alert::success('Success Title', 'Success Message');
+
         //drakify('success');
 
         $notebook = NoteBook::where('slug', $slug)->firstOrFail();
