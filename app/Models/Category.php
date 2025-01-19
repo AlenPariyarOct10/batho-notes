@@ -9,7 +9,12 @@ class Category extends Model
 
     public function notebook()
     {
-        return $this->hasMany(Notebook::class);
+        return $this->hasMany(Notebook::class, 'category', 'id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'author', 'id');
     }
     protected $fillable =
         [
@@ -19,7 +24,7 @@ class Category extends Model
             'id',
             'level',
             'parent_id',
-
+            'author',
         ];
 
     protected function casts(): array

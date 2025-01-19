@@ -12,7 +12,7 @@ class NoteBook extends Model
     protected $table = 'notebooks';
     public function category()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class, 'category', 'id');
     }
     protected $fillable =
         [

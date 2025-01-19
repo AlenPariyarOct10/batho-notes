@@ -21,6 +21,13 @@ Route::middleware('auth')->group(function () {
     Route::post('/notebook/edit/{id}', [\App\Http\Controllers\User\NoteBookController::class, 'update'])->name('notebook.update');
     Route::delete('/notebook/{id}', [\App\Http\Controllers\User\NoteBookController::class, 'destroy'])->name('notebook.delete');
     Route::get('/notebook', [\App\Http\Controllers\User\NoteBookController::class, 'index'])->name('notebook.index');
+
+    Route::get('/category', [\App\Http\Controllers\User\CategoryController::class, 'index'])->name('category.index');
+    Route::get('/category/create', [\App\Http\Controllers\User\CategoryController::class, 'create'])->name('category.create');
+    Route::post('/category/create', [\App\Http\Controllers\User\CategoryController::class, 'store'])->name('category.create');
+    Route::delete('/category/{id}', [\App\Http\Controllers\User\CategoryController::class, 'destroy'])->name('category.delete');
+    Route::post('/category/edit/{id}', [\App\Http\Controllers\User\CategoryController::class, 'update'])->name('category.update');
+    Route::get('/category/edit/{id}', [\App\Http\Controllers\User\CategoryController::class, 'edit'])->name('category.edit');
 });
 
 // Guest-only routes (prevent access for authenticated users)

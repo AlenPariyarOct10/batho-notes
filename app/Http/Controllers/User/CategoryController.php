@@ -15,7 +15,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $allCategory = Category::withCount('notebook')->where('author', Auth::id())->get();
+        return view('user.category.index', compact('allCategory'));
     }
 
     /**
@@ -23,7 +24,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        $allCategory = Category::all();
+        return view('user.category.create', compact('allCategory'));
     }
 
     /**
@@ -31,12 +33,25 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $request['slug'] = Str::slug($request['title'], '-').Auth::user()->id;
+        $request['slug'] = Str::slug($request['title'], '-').Auth::id();
+        $request['author'] = Auth::id();
+
+
+
         $validated = $request->validate([
             'title'=>'required|max:255',
             'description'=>'required|max:255',
             'slug'=>'required|unique:categories',
+            'author'=>'required',
         ]);
+
+        if($request['parent_id']!=="null")
+        {
+            $category = Category::findOrFail($request['parent_id']);
+            $validated['level'] = $category->level + 1;
+        }
+
+        $validated['parent_id'] = ($request['parent_id']!=="null")?$request['parent_id']:null;
 
         if(Category::create($validated))
         {
@@ -60,7 +75,9 @@ class CategoryController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $category = Category::findOrFail($id);
+        $allCategory = Category::all();
+        return view('user.category.edit', compact('category'), compact('allCategory'));
     }
 
     /**
@@ -76,6 +93,6 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+
     }
 }

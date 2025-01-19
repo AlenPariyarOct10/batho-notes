@@ -31,6 +31,7 @@
 </div>
 <x-notify::notify />
 </body>
+@include('sweetalert::alert')
 <script>
     document.getElementById('profile-img-btn').addEventListener('click', () => {
 
@@ -58,6 +59,6 @@
     });
 
 </script>
-@include('sweetalert::alert')
+
 @stack('js')
 </html>

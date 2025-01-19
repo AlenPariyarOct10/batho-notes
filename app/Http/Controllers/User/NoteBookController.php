@@ -17,7 +17,7 @@ class NoteBookController extends Controller
      */
     public function index()
     {
-        $notes = NoteBook::all()->where('author_id', Auth::id());
+        $notes = NoteBook::with('category')->where('author_id', Auth::id())->get();
 
         $title = "Delete Notebook !";
         $text = "Are you sure you want to delete this notebook ?";
@@ -30,7 +30,8 @@ class NoteBookController extends Controller
      */
     public function create()
     {
-        return view('notebook.create');
+        $allCategories = Category::all();
+        return view('notebook.create', compact('allCategories'));
     }
 
     /**

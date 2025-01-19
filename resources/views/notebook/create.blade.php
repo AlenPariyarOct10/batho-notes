@@ -43,11 +43,19 @@
     <hr class="h-px my-4 bg-gray-200 border-0 dark:bg-gray-700">
 
         <div id="new-repo-category-section" class="flex flex-col gap-3 items-baseline mt-3 text-secondary">
-            <span class="font-medium text-secondary">Category</span>
 
+            <span class="font-medium text-secondary">Parent Category</span>
             <select name="category" class="px-3 border-[1px]">
-                <option value="null">No Categories</option>
+            @forelse($allCategories as $category)
+                    @once
+                        <option value="null" selected>Select One</option>
+                    @endonce
+                    <option value="{{$category->id}}">{{$category->title}}</option>
+            @empty
+                    <option value="null">No Categories</option>
+            @endforelse
             </select>
+
         </div>
 
     <hr class="h-px my-4 bg-gray-200 border-0 dark:bg-gray-700">
